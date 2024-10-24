@@ -1,0 +1,215 @@
+package main;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
+import javax.swing.JPanel;
+
+import entity.entity;
+import entity.player;
+import main.tile.tileManager;
+
+
+public class gamepanel extends JPanel implements Runnable {
+    final int originalTileSize = 16;
+    final int scale = 3;
+
+    public final int tileSize = originalTileSize * scale;
+    public final int maxScreenCol = 16;
+    public final int maxScreenRow = 12;
+    public final int screenWidth = tileSize * maxScreenCol;
+    public final int screenHeight = tileSize * maxScreenRow;
+    int fps = 60;
+    public final int maxWorldCol = 50;
+    public final int maxWorldRow = 50;
+  
+
+    tileManager tileM = new tileManager(this);
+    public keyHandler keyH = new keyHandler(this);
+
+    Sound music =new Sound();
+    Sound se =new Sound();
+   
+
+    public CollisionChecker cChecker =new CollisionChecker(this);
+    public AssetSetter aSetter=new AssetSetter(this);
+    public UI ui =new UI(this);
+    public EventHandler eHandler=new EventHandler(this);
+    Thread gameThread;
+
+    public player player =new player(this,keyH); // Declare the player variable
+    public entity obj[]=new entity[10];
+    public entity npc[]=new entity[10];
+    public entity monster[]=new entity[20];
+    ArrayList<entity> entityList=new ArrayList<>();
+    
+    public int gameState;
+    public final int playState=1;
+    public final int pauseState=2;
+    public final int dialogueState=3;
+    public  final int tileState=0;
+
+
+
+    public gamepanel() {
+        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
+        this.setBackground(Color.black);
+        this.setDoubleBuffered(true);
+        this.addKeyListener(keyH);
+        this.setFocusable(true);
+        this.requestFocusInWindow(); // Request focus for the panel
+
+        player = new player(this, keyH); // Instantiate the player object
+    }
+
+
+    public void setUpGame(){
+        aSetter.setObject();
+        aSetter.setNPC();
+        aSetter.setMonster();
+
+      //  playMusic(0);
+        
+        gameState=tileState;
+    }
+
+    public void startGameThread() {
+        gameThread = new Thread(this);
+        gameThread.start();
+    }
+
+    @Override
+    public void run() {
+        double drawInterval = 1000000000 / fps;
+        double delta = 0;
+        long lastTime = System.nanoTime();
+        long currentTime;
+        while (gameThread != null) {
+            currentTime = System.nanoTime();
+            delta += (currentTime - lastTime) / drawInterval;
+            lastTime = currentTime;
+            if (delta >= 1) {
+                update();
+                repaint();
+                delta--;
+            }
+        }
+    }
+
+    public void update() {
+
+
+        if(gameState==playState){
+            player.update();
+
+            for(int i=0;i<npc.length;i++){
+                if(npc[i]!=null){
+                    npc[i].update();
+                }
+            }
+            for(int i=0;i<monster.length;i++){
+                if(monster[i]!=null){
+                    monster[i].update();
+                }
+            }
+        }
+
+
+        if(gameState==pauseState){
+
+        }
+       
+    }
+
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D) g;
+
+
+        long drawStart =0;
+        if(keyH.checkDrawTime==true){
+            drawStart=System.nanoTime();
+        }
+
+        if(gameState==tileState){
+          ui.draw(g2);
+        }
+
+        else{
+ 
+            
+        tileM.draw(g2);
+
+
+        entityList.add(player);
+        for(int i=0;i<npc.length;i++){
+            if(npc[i]!=null){
+                entityList.add(npc[i]);
+            }
+        }
+        for(int i=0;i<obj.length;i++){
+            if(obj[i]!=null){
+                entityList.add(obj[i]);
+            }
+        }
+        for(int i=0;i<monster.length;i++){
+            if(monster[i]!=null){
+                entityList.add(monster[i]);
+            }
+        }
+
+
+        Collections.sort(entityList,new Comparator<entity>() {
+
+            @Override
+            public int compare(entity e1, entity e2) {
+                int result =Integer.compare(e1.worldY, e2.worldY);
+                return result;
+            }
+            
+        });
+
+        for(int i=0;i<entityList.size();i++){
+            entityList.get(i).draw(g2);
+        }
+
+        entityList.clear();
+
+        ui.draw(g2);
+        }
+       
+
+        if(keyH.checkDrawTime==true){
+            long drawEnd =System.nanoTime();
+        long passed =drawEnd-drawStart;
+        g2.setColor(Color.white);
+        g2.drawString("Draw Time: "+passed, 10, 400);
+        System.out.println("Draw Time: "+passed);
+        }
+        
+
+        g2.dispose();
+    }
+
+    public void playMusic(int i){
+
+        music.setFile(i);
+        music.play();
+        music.loop();
+
+    }
+
+    public void stopMusic(){
+        music.stop();
+    }
+
+    public void playSE( int i){
+        se.setFile(i);
+        se .play();
+    }
+}
