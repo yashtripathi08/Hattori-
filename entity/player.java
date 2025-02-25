@@ -291,7 +291,7 @@ public void attacking(){
                 break;
         }
 
-        if(invincible=true){
+        if(invincible==true){
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,0.3f));
         }
         g2.drawImage(image, tempScreenX, tempScreenY, null);

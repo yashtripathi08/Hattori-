@@ -78,8 +78,7 @@ public int checkObject(entity entity,boolean player){
             switch (entity.direction) {
                 case "up":
                     entity.solidArea.y-=entity.speed;
-                    
-                    break;
+                   break;
                 case "down":
                 entity.solidArea.y+=entity.speed;
                     break;

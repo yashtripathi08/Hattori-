@@ -85,7 +85,7 @@ public int type;
         boolean conatctPlayer= gp.cChecker.checkPlayer(this);
 
 
-        if(this.type==2&& conatctPlayer==true){
+        if(this.type==2 && conatctPlayer==true){
             if(gp.player.invincible==false){
                 gp.player.life-=1;
                 gp.player.invincible=true;
@@ -149,7 +149,7 @@ public int type;
                 break;
         }
 
-        if(invincible=true){
+        if(invincible==true){
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,0.4f));
         }
             g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
