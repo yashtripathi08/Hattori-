@@ -1,4 +1,5 @@
 package entity;
+import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -20,6 +21,8 @@ public class entity {
     public int spriteCounter=0;
     public int spriteNum=1;
     public Rectangle solidArea=new Rectangle(0,0,40,40);
+    public Rectangle attackArea=new Rectangle(0,0,0,0);
+
 
     public int solidAreaDefaultX,solidAreaDefaultY;
     public boolean collisionOn =false;
@@ -110,6 +113,13 @@ public int type;
                         }
                         spriteCounter = 0;
                     }
+                    if(invincible==true){
+                        invincibleCounter++;
+                        if(invincibleCounter>40){
+                            invincible=false;
+                            invincibleCounter=0;
+                        }
+                    }
     }
     public void draw(Graphics2D g2){
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
@@ -138,7 +148,12 @@ public int type;
                 image = (spriteNum == 1) ? right1 : right2;
                 break;
         }
+
+        if(invincible=true){
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,0.4f));
+        }
             g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,1f));
     }
     }
 

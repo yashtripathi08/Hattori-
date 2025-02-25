@@ -10,7 +10,7 @@ public class MON_GreenSlime extends entity {
 
     public MON_GreenSlime(gamepanel gp) {
         super(gp);
-        
+        this.gp =gp;
         type = 2;
         name = "Green Slime";
         speed = 1;
