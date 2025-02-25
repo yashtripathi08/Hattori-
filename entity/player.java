@@ -251,7 +251,7 @@ public void attacking(){
         int tempScreenY=screenY;
         switch (direction) {
             case "up":
-            tempScreenY =screenY-gp.tileSize;
+            //tempScreenY =screenY-gp.tileSize;
             if(attacking==false){
                 image = (spriteNum == 1) ? up1 : up2;
             }
@@ -271,7 +271,7 @@ public void attacking(){
                 break;
 
             case "left":
-            tempScreenX=screenX-gp.tileSize;
+            //tempScreenX=screenX-gp.tileSize;
             if(attacking==false){
                 image = (spriteNum == 1) ? left1 : left2;
             }
