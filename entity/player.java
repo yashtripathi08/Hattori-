@@ -105,24 +105,20 @@ public class player extends entity {
                 direction = "right";
                 
             }
-
-
-
-
                collisionOn=false;
                gp.cChecker.checkTile(this);
 
 
                int objIndex =gp.cChecker.checkObject(this,true);
-pickUpObject(objIndex);
+               pickUpObject(objIndex);
 
-int npcIndex=gp.cChecker.checkEntity(this, gp.npc);
-interactNPC(npcIndex);
+             int npcIndex=gp.cChecker.checkEntity(this, gp.npc);
+                  interactNPC(npcIndex);
  
-int monsterIndex =gp.cChecker.checkEntity(this, gp.monster);
-contactMonster(monsterIndex);
+               int monsterIndex =gp.cChecker.checkEntity(this, gp.monster);
+                 contactMonster(monsterIndex);
 
-gp.eHandler.checkEvent();
+                   gp.eHandler.checkEvent();
 
 if(collisionOn==false&&keyH.enterPressed==false){
     switch (direction) {
