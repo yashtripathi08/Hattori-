@@ -56,4 +56,8 @@ public class MON_GreenSlime extends entity {
         }
      
     }
+    public void damageReaction() {
+        actionLookCounter = 0;
+        direction = gp.player.direction;
+    }
 }
