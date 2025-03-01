@@ -12,9 +12,9 @@ public class OBJ_Door extends entity{
  
    public OBJ_Door(gamepanel gp){
       super(gp);
-    name ="Door";
-down1=setup("/res/objects/door",gp.tileSize,gp.tileSize);
-collision=true;
+      name ="Door";
+      down1=setup("/res/objects/door",gp.tileSize,gp.tileSize);
+      collision=true;
 
     
     

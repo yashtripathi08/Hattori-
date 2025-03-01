@@ -12,10 +12,10 @@ public class OBJ_Heart  extends entity{
 
     public OBJ_Heart(gamepanel gp){
         super(gp);
-    name ="Heart";
-    image=setup("/res/objects/heart_full",gp.tileSize,gp.tileSize);
-    image2=setup("/res/objects/heart_half",gp.tileSize,gp.tileSize);
-    image3=setup("/res/objects/heart_blank",gp.tileSize,gp.tileSize);
+        name ="Heart";
+        image=setup("/res/objects/heart_full",gp.tileSize,gp.tileSize);
+        image2=setup("/res/objects/heart_half",gp.tileSize,gp.tileSize);
+        image3=setup("/res/objects/heart_blank",gp.tileSize,gp.tileSize);
 
     
    }

@@ -107,7 +107,7 @@ public class keyHandler implements KeyListener {
     }
 
     public void characterState(int code) {
-        if (code == KeyEvent.VK_C) {
+        if (code == KeyEvent.VK_ENTER) {
             gp.gameState = gp.playState;
         }
     }

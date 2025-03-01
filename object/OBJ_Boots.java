@@ -12,8 +12,8 @@ public class OBJ_Boots extends entity{
  
    public OBJ_Boots(gamepanel gp){
       super(gp);
-    name ="Boots";
-down1=setup("/res/objects/Boots",gp.tileSize,gp.tileSize);
+      name ="Boots";
+      down1=setup("/res/objects/Boots",gp.tileSize,gp.tileSize);
 
     
     
