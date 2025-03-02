@@ -7,7 +7,7 @@ public class keyHandler implements KeyListener {
 
     gamepanel gp;
     public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed;
-    boolean checkDrawTime = false;
+    boolean showDebugText = false;
 
     public keyHandler(gamepanel gp) {
         this.gp = gp;
@@ -90,7 +90,16 @@ public class keyHandler implements KeyListener {
             enterPressed = true;
         }
         if (code == KeyEvent.VK_T) {
-            checkDrawTime = !checkDrawTime;
+            if(showDebugText==false){
+                showDebugText = true;
+            } else if (showDebugText==true){
+                showDebugText = false;
+            }
+              
+        }
+        if (code == KeyEvent.VK_R) {
+            gp.tileM.loadMap("/res/maps/worldV2.txt");
+
         }
     }
 
