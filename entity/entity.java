@@ -56,6 +56,7 @@ public class entity {
 
     public int attackValue;
     public int defenseValue;
+    public String description ="";
 
     public entity(gamepanel gp) {
         this.gp = gp;
