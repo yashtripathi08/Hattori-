@@ -11,7 +11,32 @@ public AssetSetter(gamepanel gp){
 }
 
 public void setObject(){
-
+ 
+    int i=0;
+    gp.obj[i]=new object.OBJ_Key(gp);
+    gp.obj[i].worldX=gp.tileSize*25;
+    gp.obj[i].worldY=gp.tileSize*23;
+    i++;
+    gp.obj[i]=new object.OBJ_Key(gp);
+    gp.obj[i].worldX=gp.tileSize*21;
+    gp.obj[i].worldY=gp.tileSize*19;
+    i++;
+    gp.obj[i]=new object.OBJ_Key(gp);
+    gp.obj[i].worldX=gp.tileSize*26;
+    gp.obj[i].worldY=gp.tileSize*21;
+    i++;
+    gp.obj[i]=new object.OBJ_Axe(gp);
+    gp.obj[i].worldX=gp.tileSize*33;
+    gp.obj[i].worldY=gp.tileSize*21;
+    i++;
+    gp.obj[i]=new object.OBJ_shield_blue(gp);
+    gp.obj[i].worldX=gp.tileSize*35;
+    gp.obj[i].worldY=gp.tileSize*21;
+    i++;
+    gp.obj[i]=new object.OBJ_Potion_Red(gp);
+    gp.obj[i].worldX=gp.tileSize*22;
+    gp.obj[i].worldY=gp.tileSize*27;
+    i++;
 
 }
 public void setNPC(){

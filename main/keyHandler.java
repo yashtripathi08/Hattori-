@@ -116,7 +116,7 @@ public class keyHandler implements KeyListener {
     }
 
     public void characterState(int code) {
-        if (code == KeyEvent.VK_ENTER) {
+        if (code == KeyEvent.VK_ESCAPE) {
             gp.gameState = gp.playState;
         }
         if(code == KeyEvent.VK_W){
@@ -142,6 +142,10 @@ public class keyHandler implements KeyListener {
             gp.ui.slotCol++; 
             gp.playSE(9);
             }
+        }
+        if(code == KeyEvent.VK_ENTER){
+            gp.player.selectItem();
+
         }
     }
 

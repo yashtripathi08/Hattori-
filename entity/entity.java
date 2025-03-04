@@ -39,7 +39,7 @@ public class entity {
     public BufferedImage image, image2, image3;
     public String name;
     public boolean collision = false;
-    public int type;
+    
 
     public int maxLife;
     public int life;
@@ -57,6 +57,16 @@ public class entity {
     public int attackValue;
     public int defenseValue;
     public String description ="";
+
+    public int type;
+    public final int type_player = 0;
+    public final int type_npc = 1;
+    public final int type_monster = 2;
+    public final int type_sword = 3;
+    public final int type_axe = 4;
+    public final int type_shield = 5;
+    public final int type_consumable = 6;
+
 
     public entity(gamepanel gp) {
         this.gp = gp;
@@ -92,6 +102,9 @@ public class entity {
                 break;
         }
     }
+    public void use(entity entity) {
+        
+    }
 
     public void update() {
         setAction();
@@ -103,7 +116,7 @@ public class entity {
         gp.cChecker.checkEntity(this, gp.monster);
         boolean contactPlayer = gp.cChecker.checkPlayer(this);
 
-        if (this.type == 2 && contactPlayer == true) {
+        if (this.type == type_monster && contactPlayer == true) {
             if (gp.player.invincible == false) {
                 gp.playSE(6);
                 int damage =attack - gp.player.defense;
