@@ -34,6 +34,7 @@ public class entity {
     public int actionLookCounter = 0;
     public boolean invincible = false;
     public int invincibleCounter = 0;
+    public int shotAvailableCounter = 0;
     String dialogues[] = new String[20];
     int dialogueIndex = 0;
     public BufferedImage image, image2, image3;
@@ -44,6 +45,8 @@ public class entity {
     public int maxLife;
     public int life;
     public int level;
+    public int maxMana;
+    public int mana;
     public int strength;
     public int dexterity;
     public int attack;
@@ -53,10 +56,12 @@ public class entity {
     public int coin;
     public entity currentWeapon;
     public entity currentShield;
+    public Projectile projectile;
 
     public int attackValue;
     public int defenseValue;
     public String description ="";
+    public int useCost;
 
     public int type;
     public final int type_player = 0;
@@ -246,8 +251,7 @@ public class entity {
             changeAlpha(g2, 1f);
         }
         if (dyingCounter > i * 8) {
-            dying = false;
-            alive = false;
+                alive = false;
         }
     }
 

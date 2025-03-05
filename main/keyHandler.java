@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 public class keyHandler implements KeyListener {
 
     gamepanel gp;
-    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, shotKeyPressed;
     boolean showDebugText = false;
 
     public keyHandler(gamepanel gp) {
@@ -89,6 +89,9 @@ public class keyHandler implements KeyListener {
         if (code == KeyEvent.VK_ENTER) {
             enterPressed = true;
         }
+        if (code == KeyEvent.VK_F) {
+            shotKeyPressed = true;
+        }
         if (code == KeyEvent.VK_T) {
             if(showDebugText==false){
                 showDebugText = true;
@@ -166,6 +169,9 @@ public class keyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_ENTER) {
             enterPressed = false;
+        }
+        if (code == KeyEvent.VK_F) {
+            shotKeyPressed = false;
         }
     }
 }

@@ -23,6 +23,8 @@ public class Sound {
         soundURL[7]=getClass().getResource("/res/sound/fanfare.wav");
         soundURL[8]=getClass().getResource("/res/sound/levelup.wav");
         soundURL[9]=getClass().getResource("/res/sound/cursor.wav");
+        soundURL[10]=getClass().getResource("/res/sound/burning.wav");
+
 
 
     }

@@ -44,6 +44,7 @@ public class gamepanel extends JPanel implements Runnable {
     public entity obj[] = new entity[10];
     public entity npc[] = new entity[10];
     public entity monster[] = new entity[20];
+    public ArrayList<entity> projectileList = new ArrayList<>();
     ArrayList<entity> entityList = new ArrayList<>();
 
     public int gameState;
@@ -117,6 +118,15 @@ public class gamepanel extends JPanel implements Runnable {
                 }
             }
 
+            for (int i = 0; i < projectileList.size(); i++) {
+                if (projectileList.get(i) != null) {
+                    if (projectileList.get(i).alive == true) {
+                        projectileList.get(i).update();  // Remove the monster from the game
+                    } else if(projectileList.get(i).alive == false) {
+                        projectileList.remove(i);
+                    }
+                }
+            }
             if (gameState == pauseState) {
                 // Add pause state logic here
             }
@@ -151,6 +161,11 @@ public class gamepanel extends JPanel implements Runnable {
             for (int i = 0; i < monster.length; i++) {
                 if (monster[i] != null) {
                     entityList.add(monster[i]);
+                }
+            }
+            for (int i = 0; i < projectileList.size(); i++) {
+                if (projectileList.get(i) != null) {
+                    entityList.add(projectileList.get(i));
                 }
             }
 
