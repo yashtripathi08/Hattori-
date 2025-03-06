@@ -41,7 +41,7 @@ public class gamepanel extends JPanel implements Runnable {
     Thread gameThread;
 
     public player player = new player(this, keyH); // Declare the player variable
-    public entity obj[] = new entity[10];
+    public entity obj[] = new entity[20];
     public entity npc[] = new entity[10];
     public entity monster[] = new entity[20];
     public ArrayList<entity> projectileList = new ArrayList<>();
@@ -111,6 +111,7 @@ public class gamepanel extends JPanel implements Runnable {
             for (int i = 0; i < monster.length; i++) {
                 if (monster[i] != null) {
                     if (monster[i].alive == false) {
+                        monster[i].checkDrop();
                         monster[i] = null; // Remove the monster from the game
                     } else {
                         monster[i].update();

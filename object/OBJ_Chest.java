@@ -1,8 +1,5 @@
 package object;
 
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 import entity.entity;
 import main.gamepanel;
@@ -15,7 +12,5 @@ public class OBJ_Chest extends entity{
       name ="chest";
       down1=setup("/res/objects/chest",gp.tileSize,gp.tileSize);
 
-    
-    
    }
 }
