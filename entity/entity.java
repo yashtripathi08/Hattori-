@@ -152,10 +152,10 @@ public class entity {
         int speed = generator.getParticleSpeed();
         int maxLife = generator.getParticleMaxLife();
 
-        particle p1=new particle(gp,generator,color,size,speed,maxLife,-2,-1);
-        particle p2=new particle(gp,generator,color,size,speed,maxLife,+2,-1);
-        particle p3=new particle(gp,generator,color,size,speed,maxLife,-2,+1);
-        particle p4=new particle(gp,generator,color,size,speed,maxLife,+2,+1);
+        particle p1=new particle(gp,target,color,size,speed,maxLife,-2,-1);
+        particle p2=new particle(gp,target,color,size,speed,maxLife,+2,-1);
+        particle p3=new particle(gp,target,color,size,speed,maxLife,-2,+1);
+        particle p4=new particle(gp,target,color,size,speed,maxLife,+2,+1);
 
         gp.particalList.add(p1);
         gp.particalList.add(p2);
