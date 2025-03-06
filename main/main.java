@@ -10,7 +10,7 @@ public class main {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
         window.setTitle("HATTORI");
-        window.setUndecorated(true);
+       // window.setUndecorated(true);
 
         gamepanel gamepanel = new gamepanel();
         window.add(gamepanel);

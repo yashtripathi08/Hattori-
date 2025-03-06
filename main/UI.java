@@ -32,6 +32,7 @@ public class UI {
     public int titleScreenState = 0;
     public int slotCol =0;
     public int slotRow =0;
+    int subState =0;
 
     public UI(gamepanel gp) {
         this.gp = gp;
@@ -90,6 +91,10 @@ public class UI {
         if (gp.gameState == gp.characterState) {
             drawCharacterScreen();
             drawInventory();
+        }
+
+        if(gp.gameState==gp.optionsState){
+            drawOptionScreen();
         }
     }
 
@@ -408,6 +413,126 @@ public class UI {
                 textY += 32;
             }
         }
+    }
+    public void drawOptionScreen(){
+
+        g2.setColor(Color.white);
+        g2.setFont(g2.getFont().deriveFont(32F));
+
+        int frameX =gp.tileSize*5;
+        int frameY=gp.tileSize;
+        int frameHeight= gp.tileSize*9;
+        int frameWidth=gp.tileSize*10;
+        drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+
+        switch(subState){
+            case 0:options_top(frameX, frameY);break;
+            case 1: options_fullScreenNotification(frameX, frameY);break;
+            case 2:break;
+        }
+
+        gp.keyH.enterPressed=false;
+    }
+    public void options_top(int frameX,int frameY){
+
+        int textX;
+        int textY;
+
+        String text ="OPtions";
+        textX =getXForCenteredText(text);
+        textY=frameY+gp.tileSize;
+        g2.drawString(text, textX, textY);
+
+
+        textX=frameX +gp.tileSize;
+        textY=frameY +gp.tileSize*2;
+        g2.drawString("FUll Screen", textX, textY);
+        if(commandNum==0){
+
+            g2.drawString(">", textX-25, textY);
+            if(gp.keyH.enterPressed==true){
+                if(gp.fullScreenOn==false){
+                    gp.fullScreenOn=true;
+                }
+                else if(gp.fullScreenOn==true){
+                    gp.fullScreenOn=false;
+                }
+                subState=1;
+            }
+        }
+
+        textY+=gp.tileSize;
+        g2.drawString("Music", textX, textY);
+        if(commandNum==1){
+
+            g2.drawString(">", textX-25, textY);
+        }
+
+        textY+=gp.tileSize;
+        g2.drawString("SE", textX, textY);
+        if(commandNum==2){
+
+            g2.drawString(">", textX-25, textY);
+        }
+
+        textY+=gp.tileSize;
+        g2.drawString("Control", textX, textY);
+        if(commandNum==3){
+
+            g2.drawString(">", textX-25, textY);
+        }
+
+        textY+=gp.tileSize;
+        g2.drawString("END Game", textX, textY);
+        if(commandNum==4){
+
+            g2.drawString(">", textX-25, textY);
+        }
+
+        textY+=gp.tileSize*2;
+        g2.drawString("Back", textX, textY);
+        if(commandNum==5){
+
+            g2.drawString(">", textX-25, textY);
+        }
+
+        textX=frameX +(int)(gp.tileSize*5);
+        textY =frameY+gp.tileSize*2+24;
+        g2.setStroke(new BasicStroke(3));
+        g2.drawRect(textX, textY - gp.tileSize, 24, 24);
+        if(gp.fullScreenOn==true){
+            g2.fillRect(textX, textY - gp.tileSize, 24, 24);
+        }
+
+        textY+=gp.tileSize;
+        g2.drawRect(textX, textY-gp.tileSize, 120, 24);
+
+        textY+=gp.tileSize;
+        g2.drawRect(textX, textY-gp.tileSize, 120, 24);
+
+
+    }
+    public void options_fullScreenNotification(int frameX,int frameY){
+
+        int textX=frameX +gp.tileSize;
+        int textY =frameY +(gp.tileSize*2+24);
+
+        currentDialogue ="     The change will take \n     effect after restarting\n     the game.";
+
+        for(String line:currentDialogue.split("\n")){
+            g2.drawString(line, textX, textY);
+            textY+=40;
+        }
+
+        textY=frameY +gp.tileSize*8;
+        g2.drawString("Back", textX, textY);
+        if(commandNum==0){
+            g2.drawString(">", textX-25, textY);
+            if(gp.keyH.enterPressed==true){
+                subState=0;
+            }
+        }
+
     }
     public int getItemIndexOnSlot(){
         int itemIndex =slotCol+(slotRow*5);

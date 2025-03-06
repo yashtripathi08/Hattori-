@@ -36,6 +36,7 @@ public class gamepanel extends JPanel implements Runnable {
     int screenHeight2=screenHeight;
     BufferedImage tempScreen;
     Graphics2D g2;
+    public boolean fullScreenOn=false;
 
     tileManager tileM = new tileManager(this);
     public keyHandler keyH = new keyHandler(this);
@@ -64,6 +65,7 @@ public class gamepanel extends JPanel implements Runnable {
     public final int dialogueState = 3;
     public final int tileState = 0;
     public final int characterState = 4;
+    public final int optionsState =5;
 
     public gamepanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -89,7 +91,7 @@ public class gamepanel extends JPanel implements Runnable {
 
         tempScreen=new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
         g2 =(Graphics2D)tempScreen.getGraphics();
-        setFullScreen();
+        //setFullScreen();
     }
     public void setFullScreen(){
         GraphicsEnvironment ge=GraphicsEnvironment.getLocalGraphicsEnvironment();
