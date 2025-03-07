@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferedImage;
+import java.io.ObjectInputFilter.Config;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -20,6 +21,7 @@ import main.tile.tileManager;
 import tiles_interactive.InteractiveTile;
 
 public class gamepanel extends JPanel implements Runnable {
+    public static final String Config = null;
     final int originalTileSize = 16;
     final int scale = 3;
 
@@ -48,6 +50,8 @@ public class gamepanel extends JPanel implements Runnable {
     public AssetSetter aSetter = new AssetSetter(this);
     public UI ui = new UI(this);
     public EventHandler eHandler = new EventHandler(this);
+    public config config=new config(this);
+
     Thread gameThread;
 
     public player player = new player(this, keyH); // Declare the player variable
@@ -91,7 +95,10 @@ public class gamepanel extends JPanel implements Runnable {
 
         tempScreen=new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
         g2 =(Graphics2D)tempScreen.getGraphics();
-        //setFullScreen();
+        if(fullScreenOn==true){
+            setFullScreen();
+        }
+        
     }
     public void setFullScreen(){
         GraphicsEnvironment ge=GraphicsEnvironment.getLocalGraphicsEnvironment();

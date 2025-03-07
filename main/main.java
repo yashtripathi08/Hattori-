@@ -10,10 +10,16 @@ public class main {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
         window.setTitle("HATTORI");
-       // window.setUndecorated(true);
+       // 
 
         gamepanel gamepanel = new gamepanel();
         window.add(gamepanel);
+        gamepanel.config.loadConfig();
+        if(gamepanel.fullScreenOn==true){
+
+            window.setUndecorated(true);
+            
+        }
         window.pack();
 
         window.setLocationRelativeTo(null);
