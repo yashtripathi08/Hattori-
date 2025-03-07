@@ -84,7 +84,7 @@ public class gamepanel extends JPanel implements Runnable {
         aSetter.setMonster();
         aSetter.setInteractiveTile();
 
-        playMusic(0);
+       // playMusic(0);
 
         gameState = tileState;
         keyH.enterPressed = false;
