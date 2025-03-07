@@ -2,7 +2,7 @@ package entity;
 
 import java.util.Random;
 
-import main.gamepanel;
+import Main.gamepanel;
 
 public class NPC_OldMan  extends entity{
 

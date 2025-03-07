@@ -1,4 +1,4 @@
-package main;
+package Main;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,16 +8,16 @@ import java.awt.Graphics2D;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferedImage;
-//import java.io.ObjectInputFilter.Config;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
 import javax.swing.JPanel;
 
+import Main.tile.tileManager;
 import entity.entity;
 import entity.player;
-import main.tile.tileManager;
 import tiles_interactive.InteractiveTile;
 
 public class gamepanel extends JPanel implements Runnable {
@@ -123,10 +123,10 @@ public class gamepanel extends JPanel implements Runnable {
     public void setFullScreen(){
         GraphicsEnvironment ge=GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice gd= ge.getDefaultScreenDevice();
-        gd.setFullScreenWindow(main.window);
+        gd.setFullScreenWindow(Main.window);
 
-        screenWidth2=main.window.getWidth();
-        screenHeight2=main.window.getHeight();
+        screenWidth2=Main.window.getWidth();
+        screenHeight2=Main.window.getHeight();
     }
 
     public void startGameThread() {

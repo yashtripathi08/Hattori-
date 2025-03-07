@@ -6,8 +6,9 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
-import main.UtilityTool;
-import main.gamepanel;
+
+import Main.UtilityTool;
+import Main.gamepanel;
 
 public class entity {
     gamepanel gp;

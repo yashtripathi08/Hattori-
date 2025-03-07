@@ -1,8 +1,8 @@
 package object;
 
 
+import Main.gamepanel;
 import entity.entity;
-import main.gamepanel;
 
 
 public class OBJ_Chest extends entity{

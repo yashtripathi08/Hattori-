@@ -1,9 +1,9 @@
 package monster;
 
 import java.util.Random;
-import entity.entity;
 
-import main.gamepanel;
+import Main.gamepanel;
+import entity.entity;
 import object.OBJ_Coin_Bronze;
 import object.OBJ_Heart;
 import object.OBJ_ManaCrystal;

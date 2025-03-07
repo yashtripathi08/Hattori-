@@ -1,11 +1,12 @@
 package object;
 
+import Main.gamepanel;
+
 //import java.io.IOException;
 
 //import javax.imageio.ImageIO;
 
 import entity.entity;
-import main.gamepanel;
 
 
 public class OBJ_Boots extends entity{

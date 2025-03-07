@@ -3,7 +3,7 @@ package entity;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import main.gamepanel;
+import Main.gamepanel;
 
 public class particle extends entity {
     entity generator;

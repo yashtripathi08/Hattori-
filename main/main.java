@@ -1,8 +1,8 @@
-package main;
+package Main;
 
 import javax.swing.JFrame;
 
-public class main {
+public class Main {
 
     public static JFrame window;
     public static void main(String[] args) {

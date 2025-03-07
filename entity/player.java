@@ -9,11 +9,8 @@ import java.awt.image.BufferedImage;
 //import java.io.IOException;
 import java.util.ArrayList;
 
-//import javax.imageio.ImageIO;
-
-//import main.UtilityTool;
-import main.gamepanel;
-import main.keyHandler;
+import Main.gamepanel;
+import Main.keyHandler;
 //import object.OBJ_Axe;
 import object.OBJ_Fireball;
 import object.OBJ_Key;
@@ -173,7 +170,7 @@ public class player extends entity {
             int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
             contactMonster(monsterIndex);
 
-            int iTileIndex = gp.cChecker.checkEntity(this, gp.iTile);  
+            //int iTileIndex = gp.cChecker.checkEntity(this, gp.iTile);  
 
             gp.eHandler.checkEvent();
 

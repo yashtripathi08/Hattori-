@@ -1,4 +1,4 @@
-package main.tile;
+package Main.tile;
 
 import java.awt.image.BufferedImage;
 
