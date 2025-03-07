@@ -1,6 +1,6 @@
 package tiles_interactive;
 
-import Main.gamepanel;
+import main.gamepanel;
 
 public class IT_Trunk extends InteractiveTile
 {

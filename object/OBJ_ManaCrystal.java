@@ -1,6 +1,6 @@
 package object;
-import Main.gamepanel;
 import entity.entity;
+import main.gamepanel;
 public class OBJ_ManaCrystal extends entity{
     gamepanel gp;
     public OBJ_ManaCrystal(gamepanel Gp){

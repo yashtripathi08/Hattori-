@@ -9,8 +9,8 @@ import java.awt.image.BufferedImage;
 //import java.io.IOException;
 import java.util.ArrayList;
 
-import Main.gamepanel;
-import Main.keyHandler;
+import main.gamepanel;
+import main.keyHandler;
 //import object.OBJ_Axe;
 import object.OBJ_Fireball;
 import object.OBJ_Key;

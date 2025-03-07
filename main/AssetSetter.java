@@ -1,4 +1,4 @@
-package Main;
+package main;
 
 import entity.NPC_OldMan;
 import monster.MON_GreenSlime;

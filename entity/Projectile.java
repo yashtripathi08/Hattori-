@@ -1,6 +1,6 @@
 package entity;
 
-import Main.gamepanel;
+import main.gamepanel;
 
 public class Projectile extends entity {
     entity user;

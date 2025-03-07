@@ -1,4 +1,4 @@
-package Main;
+package main;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -15,9 +15,9 @@ import java.util.Comparator;
 
 import javax.swing.JPanel;
 
-import Main.tile.tileManager;
 import entity.entity;
 import entity.player;
+import main.tile.tileManager;
 import tiles_interactive.InteractiveTile;
 
 public class gamepanel extends JPanel implements Runnable {

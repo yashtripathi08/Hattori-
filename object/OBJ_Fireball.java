@@ -2,9 +2,9 @@ package object;
 
 import java.awt.Color;
 
-import Main.gamepanel;
 import entity.Projectile;
 import entity.entity;
+import main.gamepanel;
 
 public class OBJ_Fireball extends Projectile {
     gamepanel gp;

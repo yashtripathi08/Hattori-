@@ -2,8 +2,8 @@ package tiles_interactive;
 
 import java.awt.Color;
 
-import Main.gamepanel;
 import entity.entity;
+import main.gamepanel;
 
 public class IT_DryTree extends InteractiveTile{
     gamepanel gp;
