@@ -40,6 +40,9 @@ public class keyHandler implements KeyListener {
         if (gp.gameState == gp.optionsState) {
             optionsState(code);
         }
+        if (gp.gameState == gp.gameOverState) {
+            gameOverState(code);
+        }
     }
 
     public void tileState(int code) {
@@ -223,6 +226,37 @@ public class keyHandler implements KeyListener {
 
     }
 
+    public void gameOverState(int code){
+        if(code==KeyEvent.VK_W){
+
+            gp.ui.commandNum--;
+            gp.playSE(9);
+            if(gp.ui.commandNum<0){
+                gp.ui.commandNum=1;
+            }
+        }
+        if(code==KeyEvent.VK_S){
+
+            gp.ui.commandNum++;
+            gp.playSE(9);
+            if(gp.ui.commandNum>1){
+                gp.ui.commandNum=0;
+            }
+        }
+        if(code==KeyEvent.VK_ENTER){
+
+            if(gp.ui.commandNum==0){
+                gp.gameState=gp.playState;
+                gp.retry();
+            }
+            else if(gp.ui.commandNum==1){
+                gp.gameState=gp.tileState;
+                gp.restart();
+                gp.stopMusic();
+            }
+        }
+
+    }
     @Override
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();

@@ -30,6 +30,8 @@ public class Sound {
         soundURL[9]=getClass().getResource("/res/sound/cursor.wav");
         soundURL[10]=getClass().getResource("/res/sound/burning.wav");
         soundURL[11]=getClass().getResource("/res/sound/cuttree.wav");
+        soundURL[12]=getClass().getResource("/res/sound/gameover.wav");
+
 
 
 
