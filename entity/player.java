@@ -1,23 +1,23 @@
 package entity;
 
 import java.awt.AlphaComposite;
-import java.awt.Color;
-import java.awt.Font;
+//import java.awt.Color;
+//import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
+//import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
+//import javax.imageio.ImageIO;
 
-import main.UtilityTool;
+//import main.UtilityTool;
 import main.gamepanel;
 import main.keyHandler;
-import object.OBJ_Axe;
+//import object.OBJ_Axe;
 import object.OBJ_Fireball;
 import object.OBJ_Key;
-import object.OBJ_Rock;
+//import object.OBJ_Rock;
 import object.OBJ_Shield_Wood;
 import object.OBJ_Sword_Normal;
 

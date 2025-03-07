@@ -1,8 +1,8 @@
 package object;
 
-import java.io.IOException;
+//import java.io.IOException;
 
-import javax.imageio.ImageIO;
+//import javax.imageio.ImageIO;
 
 import entity.entity;
 import main.gamepanel;
