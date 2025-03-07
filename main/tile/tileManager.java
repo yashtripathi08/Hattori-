@@ -14,15 +14,18 @@ import main.gamepanel;
 public class tileManager {
     gamepanel gp;
     public tile[] tile;
-    public int mapTileNum[][];
+    public int mapTileNum[][][];
 
     public tileManager(gamepanel gp) {
         this.gp = gp;
         tile = new tile[50];
 
-        mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
+        mapTileNum = new int[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
         getTileImage();
-        loadMap("/res/maps/worldV2.txt");
+        loadMap("/res/maps/worldV3.txt",0);
+        loadMap("/res/maps/interior01.txt",1);
+
+
     }
 
     public void getTileImage() {
@@ -75,6 +78,10 @@ public class tileManager {
             setup(39, "earth", false);
             setup(40, "wall", true);
             setup(41, "tree", true);
+            setup(42, "hut", false);
+            setup(43, "floor01", false);
+            setup(44, "table01", true);
+
 
 
     }
@@ -94,7 +101,7 @@ public class tileManager {
         }
     }
 
-    public void loadMap(String filepath) {
+    public void loadMap(String filepath,int map) {
         try {
             InputStream is = getClass().getResourceAsStream(filepath);
             if (is == null) {
@@ -113,7 +120,7 @@ public class tileManager {
                 String[] numbers = line.split(" ");
                 while (col < gp.maxWorldCol) {
                     int num = Integer.parseInt(numbers[col]);
-                    mapTileNum[col][row] = num;
+                    mapTileNum[map][col][row] = num;
                     col++;
                 }
                 if (col == gp.maxWorldCol) {
@@ -132,7 +139,7 @@ public class tileManager {
         int worldRow = 0;
     
         while (worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
-            int tileNum = mapTileNum[worldCol][worldRow];
+            int tileNum = mapTileNum[gp.currentMap][worldCol][worldRow];
             int worldX = worldCol * gp.tileSize;
             int worldY = worldRow * gp.tileSize;
             int screenX = worldX - gp.player.worldX + gp.player.screenX;
