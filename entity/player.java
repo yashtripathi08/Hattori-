@@ -24,8 +24,7 @@ public class player extends entity {
     public final int screenX;
     public final int screenY;
     public boolean attackCanceled = false;
-    public ArrayList<entity> inventory = new ArrayList<>();
-    public final int maxInventorySize =20;
+   
 
 
     public player(gamepanel gp, keyHandler keyH) {
@@ -52,10 +51,11 @@ public class player extends entity {
     }
 
     public void setDefaultValues() {
-        worldX = gp.tileSize * 23;
-        worldY = gp.tileSize * 21;
-       // worldX = gp.tileSize * 12;
-        //worldY = gp.tileSize * 13;
+       // worldX = gp.tileSize * 23;
+        //worldY = gp.tileSize * 21;
+       worldX = gp.tileSize * 12;
+        worldY = gp.tileSize * 12;
+        gp.currentMap=1;
         speed = 4;
         direction = "down";
 
@@ -172,7 +172,7 @@ public class player extends entity {
             int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
             contactMonster(monsterIndex);
 
-            gp.cChecker.checkEntity(this, gp.iTile);  
+           // gp.cChecker.checkEntity(this, gp.iTile);  
 
             gp.eHandler.checkEvent();
 

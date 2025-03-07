@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+
 import javax.imageio.ImageIO;
 
 import main.UtilityTool;
@@ -59,6 +61,9 @@ public class entity {
     public entity currentWeapon;
     public entity currentShield;
     public Projectile projectile;
+
+     public ArrayList<entity> inventory = new ArrayList<>();
+    public final int maxInventorySize =20;
 
     public int value;
     public int attackValue;
@@ -196,7 +201,7 @@ public class entity {
         }
 
         spriteCounter++;
-        if (spriteCounter > 12) {
+        if (spriteCounter > 24) {
             if (spriteNum == 1) {
                 spriteNum = 2;
             } else if (spriteNum == 2) {

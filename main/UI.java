@@ -33,6 +33,8 @@ public class UI {
     public int slotCol =0;
     public int slotRow =0;
     int subState =0;
+    int counter =0;
+    public entity npc;
 
     public UI(gamepanel gp) {
         this.gp = gp;
@@ -99,6 +101,12 @@ public class UI {
         }
         if(gp.gameState==gp.gameOverState){
             drawGameOverScreen();
+        }
+        if(gp.gameState==gp.transitionState){
+            drawTransition();
+        }
+        if(gp.gameState==gp.tradeState){
+            drawTradeScreen();
         }
     }
 
@@ -230,9 +238,9 @@ public class UI {
     }
 
     public void drawDialogueScreen() {
-        int x = gp.tileSize * 2;
+        int x = gp.tileSize * 3;
         int y = gp.tileSize / 2;
-        int width = gp.screenWidth - (gp.tileSize * 4);
+        int width = gp.screenWidth - (gp.tileSize * 6);
         int height = gp.tileSize * 4;
 
         drawSubWindow(x, y, width, height);
@@ -665,6 +673,77 @@ public class UI {
             }
         }
         
+    }
+
+    public void drawTransition(){
+
+        counter++;
+        g2.setColor(new Color(0,0,0,counter*5));
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+        if(counter==50){
+            counter =0;
+            gp.gameState=gp.playState;
+            gp.currentMap=gp.eHandler.tempMap;
+            gp.player.worldX=gp.tileSize*gp.eHandler.tempCol;
+            gp.player.worldY=gp.tileSize*gp.eHandler.tempRow;
+            gp.eHandler.previousEventX=gp.player.worldX;
+            gp.eHandler.previousEventY=gp.player.worldY;
+        }
+    }
+    public void drawTradeScreen(){
+
+        switch(subState){
+            case 0:trade_select();break;
+            case 1:trade_bye();break;
+            case 2:trade_sell();break;
+
+        }
+        gp.keyH.enterPressed=false;
+    }
+    public void trade_select(){
+
+        drawDialogueScreen();
+
+        int x=gp.tileSize*15;
+        int y=gp.tileSize*4;
+        int width =gp.tileSize*3;
+        int heigth =(int)(gp.tileSize*3.5);
+        drawSubWindow(x, y, width, heigth);
+
+        x+=gp.tileSize;
+        y+=gp.tileSize;
+        g2.drawString("Bye", x, y);
+        if(commandNum==0){
+            g2.drawString(">", x-24, y);
+            if(gp.keyH.enterPressed==true){
+                subState=1;
+            }
+        }
+        y+=gp.tileSize;
+        g2.drawString("Sell", x, y);
+        if(commandNum==1){
+            g2.drawString(">", x-24, y);
+            if(gp.keyH.enterPressed==true){
+                subState=2;
+            }
+        }
+        y+=gp.tileSize;
+        g2.drawString("Leave", x, y);
+        if(commandNum==2){
+            g2.drawString(">", x-24, y);
+            if(gp.keyH.enterPressed==true){
+                commandNum=0;
+                gp.gameState=gp.dialogueState;
+                currentDialogue="Come again, hehe!";
+            }
+        }
+
+    }
+    public void trade_bye(){
+
+    }
+    public void trade_sell(){
+
     }
     public int getItemIndexOnSlot(){
         int itemIndex =slotCol+(slotRow*5);
