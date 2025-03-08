@@ -70,6 +70,7 @@ public class entity {
     public int defenseValue;
     public String description ="";
     public int useCost;
+    public int price;
 
     public int type;
     public final int type_player = 0;

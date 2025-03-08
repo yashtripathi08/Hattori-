@@ -19,6 +19,7 @@ public class OBJ_Rock extends Projectile {
         useCost=1;
         alive=false;
         getImage();
+        
     } 
     public void getImage() {
         up1 =setup("/res/projectile/rock_down_1", gp.tileSize, gp.tileSize);

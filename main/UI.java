@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 import entity.entity;
+import object.OBJ_Coin_Bronze;
 import object.OBJ_Heart;
 import object.OBJ_ManaCrystal;
 
@@ -20,7 +21,7 @@ public class UI {
     gamepanel gp;
     Graphics2D g2;
     Font maruMonica, purisaB;
-    BufferedImage heart_full, heart_half, heart_blank,crystal_full ,crystal_blank;
+    BufferedImage heart_full, heart_half, heart_blank,crystal_full ,crystal_blank,coin;
     public boolean messageOn = false;
    // public String message = "";
    // int messageCounter = 0;
@@ -30,8 +31,11 @@ public class UI {
     public String currentDialogue = "";
     public int commandNum = 0;
     public int titleScreenState = 0;
-    public int slotCol =0;
-    public int slotRow =0;
+    public int playerSlotCol =0;
+    public int playerSlotRow =0;
+    public int npcSlotCol=0;
+    public int npcSlotRow=0;
+
     int subState =0;
     int counter =0;
     public entity npc;
@@ -55,6 +59,8 @@ public class UI {
         entity crystal = new OBJ_ManaCrystal(gp);
         crystal_full = crystal.image;
         crystal_blank = crystal.image2;
+        entity bronzeCoin =new OBJ_Coin_Bronze(gp);
+        coin = bronzeCoin.down1;
     }
 
     public void addMessage(String text) {
@@ -88,12 +94,12 @@ public class UI {
 
         if (gp.gameState == gp.dialogueState) {
             drawDialogueScreen();
-            drawPlayerLife();
+            
         }
 
         if (gp.gameState == gp.characterState) {
             drawCharacterScreen();
-            drawInventory();
+            drawInventory(gp.player,true);
         }
 
         if(gp.gameState==gp.optionsState){
@@ -363,11 +369,34 @@ public class UI {
 
 
     }
-    public void drawInventory(){
-        int frameX= gp.tileSize*12;
-        int frameY= gp.tileSize;
-        int frameWidth= gp.tileSize*6;
-        int frameHeight= gp.tileSize*5;
+    public void drawInventory(entity entity, boolean cursor){
+        int frameX=0;
+        int frameY= 0;
+        int frameWidth=0;
+        int frameHeight=0;
+        int slotCol;
+        int slotRow;
+        if(entity==gp.player){
+
+             frameX= gp.tileSize*12;
+             frameY= gp.tileSize;
+             frameWidth= gp.tileSize*6;
+             frameHeight= gp.tileSize*5;
+             slotCol=playerSlotCol;
+             slotRow=playerSlotRow;
+        }
+        else{
+             frameX= gp.tileSize*2;
+             frameY= gp.tileSize;
+             frameWidth= gp.tileSize*6;
+             frameHeight= gp.tileSize*5;
+             slotCol=npcSlotCol;
+             slotRow=npcSlotRow;
+        }
+       
+       
+       
+       
         drawSubWindow(frameX, frameY, frameWidth, frameHeight);
 
         final int slotXstart = frameX + 20;
@@ -376,9 +405,9 @@ public class UI {
         int slotY = slotYstart;
         int slotSize = gp.tileSize+3;
 
-        for(int i=0;i<gp.player.inventory.size();i++){
+        for(int i=0;i<entity.inventory.size();i++){
 
-            if(gp.player.inventory.get(i)==gp.player.currentWeapon||gp.player.inventory.get(i)==gp.player.currentShield){
+            if(entity.inventory.get(i)==entity.currentWeapon||entity.inventory.get(i)==entity.currentShield){
             
                 g2.setColor(new Color(240,190,90));
                 g2.fillRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
@@ -386,7 +415,7 @@ public class UI {
             }
                 
 
-            g2.drawImage(gp.player.inventory.get(i).down1, slotX, slotY, null);
+            g2.drawImage(entity.inventory.get(i).down1, slotX, slotY, null);
             slotX += slotSize;
             if(i==4 || i==9|| i==14){
                 slotX = slotXstart;
@@ -394,6 +423,8 @@ public class UI {
             }
         }
             
+
+        if(cursor==true){
 
         int cursorX = slotXstart+(slotSize*slotCol);
         int cursorY = slotYstart+(slotSize*slotRow);
@@ -413,18 +444,20 @@ public class UI {
         int textY = dframeY + gp.tileSize;
         g2.setFont(g2.getFont().deriveFont(28F));
 
-        int itemIndex = getItemIndexOnSlot();
+        int itemIndex = getItemIndexOnSlot(slotCol,slotRow);
 
-        if(itemIndex<gp.player.inventory.size()){
+        if(itemIndex<entity.inventory.size()){
 
             drawSubWindow(dframeX, dframeY, dframeWidth, dframeHeight);
 
 
-            for(String line: gp.player.inventory.get(itemIndex).description.split("\n")){
+            for(String line:entity.inventory.get(itemIndex).description.split("\n")){
                 g2.drawString(line, textX, textY);
                 textY += 32;
             }
         }
+        }
+        
     }
     public void drawOptionScreen(){
 
@@ -741,11 +774,118 @@ public class UI {
     }
     public void trade_bye(){
 
-    }
-    public void trade_sell(){
+        drawInventory(gp.player, false);
+        drawInventory(npc, true);
+
+        int x=gp.tileSize*2;
+        int y=gp.tileSize*9;
+        int width =gp.tileSize*6;
+        int height=gp.tileSize*2;
+        drawSubWindow(x, y, width, height);
+        g2.drawString("[ESC] Back", x+24, y+60);
+
+         x=gp.tileSize*12;
+         y=gp.tileSize*9;
+         width =gp.tileSize*6;
+         height=gp.tileSize*2;
+        drawSubWindow(x, y, width, height);
+        g2.drawString("Your Coin : "+gp.player.coin, x+24, y+60);
+
+        int itemIndex =getItemIndexOnSlot(npcSlotCol, npcSlotRow);
+        if(itemIndex<npc.inventory.size()){
+            x=(int)(gp.tileSize*5.5);
+            y=(int)(gp.tileSize*5.5);
+            width=(int)(gp.tileSize*2.5);
+            height=gp.tileSize;
+            drawSubWindow(x, y, width, height);
+            g2.drawImage(coin, x+10, y+8, 32, 32,null);
+            int price =npc.inventory.get(itemIndex).price;
+            String text=""+price;
+            x=getXForAlignToRightText(text, gp.tileSize*8-20);
+            g2.drawString(text, x, y+34);
+
+            if(gp.keyH.enterPressed==true){
+                if(npc.inventory.get(itemIndex).price>gp.player.coin){
+                    subState=0;
+                    gp.gameState=gp.dialogueState;
+                    currentDialogue="You need more coins to buy that!";
+                    drawDialogueScreen();
+                }
+                else if(gp.player.inventory.size()==gp.player.maxInventorySize){
+
+                    subState=0;
+                    gp.gameState=gp.dialogueState;
+                    currentDialogue="You cannot carry any more!";
+                    
+                }
+                else{
+                    gp.player.coin -= npc .inventory .get(itemIndex).price;
+                    gp.player.inventory.add(npc.inventory.get(itemIndex));
+                }
+            }
+               
+        }
+
 
     }
-    public int getItemIndexOnSlot(){
+    
+    
+    public void trade_sell(){
+
+        drawInventory(gp.player, true);
+        int x;
+        int y;
+        int width;
+        int height;
+
+         x=gp.tileSize*2;
+         y=gp.tileSize*9;
+         width =gp.tileSize*6;
+         height=gp.tileSize*2;
+        drawSubWindow(x, y, width, height);
+        g2.drawString("[ESC] Back", x+24, y+60);
+
+         x=gp.tileSize*12;
+         y=gp.tileSize*9;
+         width =gp.tileSize*6;
+         height=gp.tileSize*2;
+        drawSubWindow(x, y, width, height);
+        g2.drawString("Your Coin : "+gp.player.coin, x+24, y+60);
+
+        int itemIndex =getItemIndexOnSlot(playerSlotCol, playerSlotRow);
+        if(itemIndex<gp.player.inventory.size()){
+            x=(int)(gp.tileSize*15.5);
+            y=(int)(gp.tileSize*5.5);
+            width=(int)(gp.tileSize*2.5);
+            height=gp.tileSize;
+            drawSubWindow(x, y, width, height);
+            g2.drawImage(coin, x+10, y+8, 32, 32,null);
+            int price =gp.player.inventory.get(itemIndex).price/2;
+            String text=""+price;
+            x=getXForAlignToRightText(text, gp.tileSize*18-20);
+            g2.drawString(text, x, y+34);
+
+            if(gp.keyH.enterPressed==true){
+               
+                if(gp.player.inventory.get(itemIndex)==gp.player.currentWeapon||gp.player.inventory.get(itemIndex)==gp.player.currentShield){
+
+                    commandNum=0;
+                    subState=0;
+                    gp.gameState=gp.dialogueState;
+                    currentDialogue="You cannot sell equipped item!";
+
+                }
+                else {
+                    gp.player.inventory.remove(itemIndex);
+                    gp.player.coin+=price;
+                }
+            }
+               
+        }
+    }
+
+
+    public int getItemIndexOnSlot(int slotCol, int slotRow){
         int itemIndex =slotCol+(slotRow*5);
         return itemIndex;
 

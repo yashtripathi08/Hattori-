@@ -16,7 +16,7 @@ public class OBJ_Key extends entity{
       down1=setup("/res/objects/Key",gp.tileSize,gp.tileSize);
       description ="["+name+ "]\nIt opens a door.";
 
-    
+      price =100;
     
    }
 }

@@ -7,7 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 //import java.io.IOException;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 import main.gamepanel;
 import main.keyHandler;
@@ -69,7 +69,7 @@ public class player extends entity {
         dexterity = 1;
         exp = 0;
         nextLevelExp = 5;
-        coin = 0;
+        coin = 500;
         currentWeapon = new OBJ_Sword_Normal(gp);
         //currentWeapon = new OBJ_Axe(gp);
         currentShield = new OBJ_Shield_Wood(gp);
@@ -407,7 +407,7 @@ public class player extends entity {
     }
 
     public void selectItem() {
-        int itemIndex = gp.ui.getItemIndexOnSlot();
+        int itemIndex = gp.ui.getItemIndexOnSlot(gp.ui.playerSlotCol,gp.ui.playerSlotRow);
         if(itemIndex<inventory.size()){
          
             entity selectedItem = inventory.get(itemIndex);
