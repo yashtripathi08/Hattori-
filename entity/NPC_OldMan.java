@@ -1,5 +1,6 @@
 package entity;
 
+import java.awt.Rectangle;
 import java.util.Random;
 
 import main.gamepanel;
@@ -8,9 +9,19 @@ public class NPC_OldMan  extends entity{
 
     public NPC_OldMan(gamepanel gp) {
         super(gp);
-        type=1;
+        
         direction ="down";
         speed =1;
+
+        solidArea =new Rectangle();
+        solidArea.x=0;
+        solidArea.y=16;
+        solidAreaDefaultX=solidArea.x;
+        solidAreaDefaultY=solidArea.y;
+        solidArea.width=30;
+        solidArea.height =30;
+
+
        
        getImage();
        setDialogue();
@@ -37,8 +48,17 @@ public class NPC_OldMan  extends entity{
         dialogues[3]="        Well, good luck on you.";
     }
    public void setAction(){
+    if(onPath==true){
+       // int goalCol =12;
+       // int goalRow=9;
+        int goalCol =(gp.player.worldX+gp.player.solidArea.x)/gp.tileSize;
+        int goalRow= (gp.player.worldY+gp.player.solidArea.y)/gp.tileSize;
+        searchPath(goalCol,goalRow);
 
-    actionLookCounter++;
+    }
+    else{
+
+        actionLookCounter++;
     if(actionLookCounter==120){
 
         Random random =new Random();
@@ -58,9 +78,13 @@ public class NPC_OldMan  extends entity{
     }
     actionLookCounter=0;
     }
+    }
+
+    
     
    }
    public void speak(){
     super.speak();
+    onPath=true;
    }
 }

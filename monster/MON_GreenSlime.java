@@ -20,7 +20,7 @@ public class MON_GreenSlime extends entity {
         speed = 1;
         maxLife = 4;
         life = maxLife;
-        attack =0;
+        attack =1;
         defense =0;
         exp=2;
         projectile =new OBJ_Rock(gp);
@@ -45,35 +45,67 @@ public class MON_GreenSlime extends entity {
         right2 = setup("/res/monster/greenslime_down_2", gp.tileSize, gp.tileSize);
     }
 
-    public void setAction() {
-        actionLookCounter++;
-        if (actionLookCounter == 120) {
-            Random random = new Random();
-            int i = random.nextInt(100) + 1;
+    public void update(){
 
-            if (i <= 25) {
-                direction = "up";
-            } else if (i > 25 && i <= 50) {
-                direction = "down";
-            } else if (i > 50 && i <= 75) {
-                direction = "left";
-            } else if (i > 75 && i <= 100) {
-                direction = "right";
+        super.update();
+
+        int xDistance=Math.abs(worldX-gp.player.worldX);
+        int yDistance=Math.abs(worldY-gp.player.worldY);
+        int tileDistance =(xDistance+yDistance)/gp.tileSize;
+        if(onPath==false && tileDistance<5){
+            int i=new Random().nextInt(100)+1;
+            if(i>50){
+                onPath=true;
             }
-            actionLookCounter = 0;
-           
         }
-        int i=new Random().nextInt(100)+1;
-        if(i<99&&projectile.alive==false&&shotAvailableCounter==30){
+     //   if(onPath ==true && tileDistance>20){onPath=false;}
+    }
+
+    public void setAction() {
+        if(onPath==true){
+
+             int goalCol =(gp.player.worldX+gp.player.solidArea.x)/gp.tileSize;
+             int goalRow= (gp.player.worldY+gp.player.solidArea.y)/gp.tileSize;
+             searchPath(goalCol,goalRow);
+
+             int i=new Random().nextInt(200)+1;
+        if(i<197&&projectile.alive==false&&shotAvailableCounter==30){
             projectile.set(worldX, worldY, direction, true, this);
             gp.projectileList.add(projectile);
             shotAvailableCounter=0;
         }
      
+     
+         }
+         else{
+     
+             actionLookCounter++;
+         if(actionLookCounter==120){
+     
+             Random random =new Random();
+         int i=random.nextInt(100)+1;
+     
+         if(i<=25){
+             direction ="up";
+         }
+         if(i>25&&i<=50){
+             direction ="down";
+         }
+         if(i>50&&i<=75){
+             direction ="left";
+         }
+         if(i>75&&i<=100){
+             direction ="right";
+         }
+         actionLookCounter=0;
+         }
+         }
+        
     }
     public void damageReaction() {
         actionLookCounter = 0;
-        direction = gp.player.direction;
+       // direction = gp.player.direction;
+       onPath=true;
     }
     public void checkDrop(){
         int i=new Random().nextInt(100)+1;
