@@ -59,7 +59,8 @@ public class gamepanel extends JPanel implements Runnable {
     public entity npc[][] = new entity[maxMap][10];
     public entity monster[][] = new entity[maxMap][20];
     public InteractiveTile iTile[][] = new InteractiveTile[maxMap][50];
-    public ArrayList<entity> projectileList = new ArrayList<>();
+    public entity projectile[][] =new entity[maxMap][20];
+   // public ArrayList<entity> projectileList = new ArrayList<>();
     public ArrayList<entity> particalList = new ArrayList<>();
     ArrayList<entity> entityList = new ArrayList<>();
 
@@ -174,12 +175,12 @@ public class gamepanel extends JPanel implements Runnable {
                 }
             }
 
-            for (int i = 0; i < projectileList.size(); i++) {
-                if (projectileList.get(i) != null) {
-                    if (projectileList.get(i).alive == true) {
-                        projectileList.get(i).update();
-                    } else if (projectileList.get(i).alive == false) {
-                        projectileList.remove(i);
+            for (int i = 0; i < projectile[1].length; i++) {
+                if (projectile[currentMap][i] != null) {
+                    if (projectile[currentMap][i].alive == true) {
+                        projectile[currentMap][i].update();
+                    } else if (projectile[currentMap][i].alive == false) {
+                        projectile[currentMap][i] =null;
                     }
                 }
             }
@@ -239,9 +240,9 @@ public class gamepanel extends JPanel implements Runnable {
                     entityList.add(monster[currentMap][i]);
                 }
             }
-            for (int i = 0; i < projectileList.size(); i++) {
-                if (projectileList.get(i) != null) {
-                    entityList.add(projectileList.get(i));
+            for (int i = 0; i < projectile[1].length; i++) {
+                if (projectile[currentMap][i] != null) {
+                    entityList.add(projectile[currentMap][i]);
                 }
             }
             for (int i = 0; i < particalList.size(); i++) {

@@ -28,6 +28,7 @@ public class entity {
     boolean hpBarOn = false;
     int hpBarCounter = 0;
     public boolean onPath = false;
+    public boolean knockBack =false;
 
     public int spriteCounter = 0;
     public int spriteNum = 1;
@@ -40,12 +41,14 @@ public class entity {
     public boolean invincible = false;
     public int invincibleCounter = 0;
     public int shotAvailableCounter = 0;
+    int knockBackCounter =0;
     String dialogues[] = new String[20];
     int dialogueIndex = 0;
     public BufferedImage image, image2, image3;
     public String name;
     public boolean collision = false;
 
+    public int defaultSpeed;
     public int maxLife;
     public int life;
     public int level;
@@ -72,6 +75,7 @@ public class entity {
     public String description = "";
     public int useCost;
     public int price;
+    public int knockBackPower =0;
 
     public int type;
     public final int type_player = 0;
@@ -182,7 +186,43 @@ public class entity {
     }
 
     public void update() {
-        setAction();
+
+        if(knockBack==true){
+
+            checkCollition();
+
+            if(collisionOn==true){
+                knockBackCounter=0;
+                knockBack=false;
+                speed =defaultSpeed;
+
+            }
+            else if (collisionOn ==false){
+                switch(gp.player.direction){
+                    case "up":
+                    worldY -= speed;
+                    break;
+                case "down":
+                    worldY += speed;
+                    break;
+                case "left":
+                    worldX -= speed;
+                    break;
+                case "right":
+                    worldX += speed;
+                    break;
+                }
+            }
+            knockBackCounter++;
+            if(knockBackCounter==10){
+                knockBackCounter=0;
+                knockBack=false;
+                speed =defaultSpeed;
+            }
+        }
+        else{
+
+            setAction();
         checkCollition();
 
         if (collisionOn == false) {
@@ -201,6 +241,8 @@ public class entity {
                     break;
             }
         }
+        }
+        
 
         spriteCounter++;
         if (spriteCounter > 24) {
