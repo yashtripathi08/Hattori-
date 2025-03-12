@@ -14,10 +14,10 @@ public class OBJ_ManaCrystal extends entity{
         image2
          =setup("/res/objects/manacrystal_blank", gp.tileSize, gp.tileSize);
 }
-public void use(entity entity){
+public boolean use(entity entity){
     gp.playSE(1);
     gp.ui.addMessage("Mana +"+value);
     entity.mana+=value;
-   
+   return true;
 }
 }

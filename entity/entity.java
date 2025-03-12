@@ -86,11 +86,30 @@ public class entity {
     public final int type_shield = 5;
     public final int type_consumable = 6;
     public final int type_pickupOnly = 7;
+    public final int type_obstacle =8;
 
     public entity(gamepanel gp) {
         this.gp = gp;
     }
 
+    public  int getLeftX(){
+        return worldX +solidArea.x;
+    }
+    public int getRightX(){
+        return worldX +solidArea.x+solidArea.width;
+    }
+    public  int getTopY(){
+        return worldY +solidArea.y;
+    }
+    public int getBottomY(){
+        return worldY +solidArea.y+solidArea.height;
+    }
+    public int getCOl(){
+        return (worldX+solidArea.x)/gp.tileSize;
+    }
+    public int getRow(){
+        return (worldY+solidArea.y)/gp.tileSize;
+    }
     public void setAction() {
         // Implement action logic here
     }
@@ -121,7 +140,10 @@ public class entity {
         }
     }
 
-    public void use(entity entity) {
+    public void interact(){
+
+    }
+    public boolean use(entity entity) { return false;
     }
 
     public void checkDrop() {
@@ -444,5 +466,37 @@ public class entity {
 //                onPath = false;
 //            }
         }
+    }
+    public int getDetected(entity user, entity target[][], String name){
+
+        int index=999;
+
+
+        int nextWorldX =user.getLeftX();
+        int nextWorldY =user.getTopY();
+
+        switch(user.direction){
+            case "up":nextWorldY=user.getTopY()-1;break;
+            case "down":nextWorldY=user.getBottomY()+1;break;
+            case "left":nextWorldX=user.getLeftX()-1;break;
+            case "right":nextWorldY=user.getRightX()+1;break;
+
+        }
+
+        int col =nextWorldX/gp.tileSize;
+        int row =nextWorldY/gp.tileSize;
+
+        for(int i=0; i<target[1].length;i++){
+            if(target[gp.currentMap][i]!=null){
+                if(target[gp.currentMap][i].getCOl()==col&&target[gp.currentMap][i].getRow()==row&& target[gp.currentMap][i].name.equals(name)){
+                    
+
+                    index =i;
+                    break;
+                }
+            }
+        }
+        return index;
+
     }
 }
