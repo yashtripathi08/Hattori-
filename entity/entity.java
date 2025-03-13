@@ -76,6 +76,8 @@ public class entity {
     public int useCost;
     public int price;
     public int knockBackPower =0;
+    public boolean stackable=false;
+    public int amount =1;
 
     public int type;
     public final int type_player = 0;

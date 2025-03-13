@@ -20,6 +20,7 @@ public class OBJ_Key extends entity{
       description ="["+name+ "]\nIt opens a door.";
 
       price =100;
+      stackable=true;
     
    }
    public boolean use(entity entity){
