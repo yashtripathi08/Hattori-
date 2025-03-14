@@ -7,7 +7,7 @@ import main.gamepanel;
 public class EnvironmentManager {
     
     gamepanel gp;
-    Lighting lighting;
+    public Lighting lighting;
 
     public EnvironmentManager(gamepanel gp){
 
