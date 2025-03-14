@@ -64,6 +64,7 @@ public class entity {
     public int coin;
     public entity currentWeapon;
     public entity currentShield;
+    public entity currentLight;
     public Projectile projectile;
 
     public ArrayList<entity> inventory = new ArrayList<>();
@@ -78,6 +79,7 @@ public class entity {
     public int knockBackPower =0;
     public boolean stackable=false;
     public int amount =1;
+    public int lightRadius;
 
     public int type;
     public final int type_player = 0;
@@ -89,6 +91,7 @@ public class entity {
     public final int type_consumable = 6;
     public final int type_pickupOnly = 7;
     public final int type_obstacle =8;
+    public final int type_light =9;
 
     public entity(gamepanel gp) {
         this.gp = gp;

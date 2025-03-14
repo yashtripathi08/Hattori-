@@ -25,6 +25,7 @@ public class player extends entity {
     public final int screenX;
     public final int screenY;
     public boolean attackCanceled = false;
+    public boolean lightUpdated =false;
    
 
 
@@ -460,6 +461,15 @@ public class player extends entity {
             if(selectedItem.type==type_shield){
                 currentShield = selectedItem;
                 defense = getDefence();
+            }
+            if(selectedItem.type ==type_light){
+                if(currentLight ==selectedItem){
+                    currentLight=null;
+                }
+                else{
+                    currentLight=selectedItem;
+                }
+                lightUpdated=true;
             }
             if(selectedItem.type==type_consumable){
 

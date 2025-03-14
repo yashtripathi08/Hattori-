@@ -3,12 +3,7 @@ package environment;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.RadialGradientPaint;
-import java.awt.geom.Area;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.awt.Shape;
-
 import main.gamepanel;
 
 public class Lighting {
@@ -16,25 +11,26 @@ public class Lighting {
     gamepanel gp;
     BufferedImage darknessFilter;
 
-    public Lighting(gamepanel gp, int circleSize){
+    public Lighting(gamepanel gp){
+
+        this.gp =gp;
+        setLightSource();
+        
+    }
+    public void setLightSource(){
 
         darknessFilter=new BufferedImage(gp.screenWidth, gp.screenHeight, BufferedImage.TYPE_INT_ARGB);
 
         Graphics2D g2 =(Graphics2D)darknessFilter.getGraphics();
 
-        Area screenArea =new Area (new Rectangle2D.Double(0,0,gp.screenWidth,gp.screenHeight));
+        if(gp.player.currentLight==null){
+            g2.setColor(new Color(0,0,0,0.98f));
+        }
+        else{
 
-        int centreX =gp.player.screenX +(gp.tileSize)/2;
+            int centreX =gp.player.screenX +(gp.tileSize)/2;
         int centreY =gp.player.screenY + (gp.tileSize)/2;
         
-        double x =centreX-(circleSize/2);
-        double y =centreY -(circleSize/2);
-
-        Shape circelShape =new Ellipse2D.Double(x,y,circleSize,circleSize);
-
-        Area lightArea =new Area(circelShape);
-
-        screenArea.subtract(lightArea);
 
         Color color[]=new Color[12];
         float fraction[]=new float[12];
@@ -67,18 +63,22 @@ public class Lighting {
         fraction[11]=1f;
 
 
-        RadialGradientPaint gPaint =new RadialGradientPaint(centreX, centreY, (circleSize/2), fraction, color);
+        RadialGradientPaint gPaint =new RadialGradientPaint(centreX, centreY, gp.player.currentLight.lightRadius, fraction, color);
 
         g2.setPaint(gPaint);
+        }
 
-        g2.fill(lightArea);
-
-
-       // g2.setColor(new Color(0,0,0,0.95f));
-
-        g2.fill(screenArea);
-        g2.dispose();
         
+
+    g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+        g2.dispose();
+    }
+    public void update(){
+
+        if(gp.player .lightUpdated==true){
+            setLightSource();
+            gp.player.lightUpdated=false;
+        }
     }
 
     public void  draw(Graphics2D g2){
