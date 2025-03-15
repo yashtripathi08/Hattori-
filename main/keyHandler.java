@@ -46,6 +46,9 @@ public class keyHandler implements KeyListener {
         if (gp.gameState == gp.tradeState) {
             tradeState(code);
         }
+        if (gp.gameState == gp.mapState) {
+            mapState(code);
+        }
     }
 
     public void tileState(int code) {
@@ -104,6 +107,15 @@ public class keyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_ESCAPE) {
             gp.gameState=gp.optionsState;
+        }
+        
+        if (code == KeyEvent.VK_Z) {
+            if(gp.map.miniMapOn==false){
+                gp.map.miniMapOn=true;
+            }
+            else {
+                gp.map.miniMapOn=false;
+            }
         }
         if (code == KeyEvent.VK_T) {
             if(showDebugText==false){
@@ -275,6 +287,13 @@ public class keyHandler implements KeyListener {
                 gp.ui.subState=0;
             }
         }
+    }
+    public void mapState(int code){
+
+        if(code ==KeyEvent.VK_ESCAPE){
+            gp.gameState=gp.playState;
+        }
+        
     }
 
     public void playerInventory(int code){
