@@ -382,7 +382,7 @@ public class player extends entity {
                 gp.playSE(5);
 
                 if(knockBackPower>0){
-                    knockBack(gp.monster[gp.currentMap][i],knockBackPower);
+                    setKnockBack(gp.monster[gp.currentMap][i],knockBackPower);
 
                 }
 
@@ -409,13 +409,7 @@ public class player extends entity {
         }
     }
     
-    public void knockBack(entity entity, int knockBackPower){
-
-        entity .direction =direction;
-        entity.speed +=knockBackPower;
-        entity.knockBack=true;
-
-    }
+   
     public void damageInteractiveTile(int i){
         if(i!=999&&gp.iTile[gp.currentMap][i].destrutable==true&& gp.iTile[gp.currentMap][i].isCorrectItem(this)==true&&gp.iTile[gp.currentMap][i].invincible==false){
            

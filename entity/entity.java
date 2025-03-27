@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 
@@ -115,9 +116,31 @@ public class entity {
     public int getRow(){
         return (worldY+solidArea.y)/gp.tileSize;
     }
+    public int getXDistance(entity target){
+        int xDistance=Math.abs(worldX-target.worldX);
+        return xDistance;
+    }
+    public int getYDistance(entity target){
+        int yDistance=Math.abs(worldY-target.worldY);
+        return yDistance;
+    }
     public void setAction() {
         // Implement action logic here
     }
+    public int tileDistance(entity target) {
+        
+        int tileDistance = (getXDistance(target) + getYDistance(target)) / gp.tileSize;
+        return tileDistance;
+    }
+    public int getGoalCol(entity target) {
+        int goalCol =(target.worldX +target.solidArea.x)/gp.tileSize;
+        return goalCol;
+    }
+    public int getGoalRow(entity target) {
+        int goalRow =(target.worldY +target.solidArea.y)/gp.tileSize;
+        return goalRow;
+    }
+        
 
     public void damageReaction() {
     
@@ -293,6 +316,60 @@ public class entity {
         }
     }
 
+    public void checkShootOrNot(int rate, int shotInterval){
+
+        int i=new Random().nextInt(rate);
+       if(i==0&&projectile.alive==false&&shotAvailableCounter==shotInterval){
+           projectile.set(worldX, worldY, direction, true, this);
+           //gp.projectileList.add(projectile);
+           for (int ii=0;ii<gp.projectile[1].length; ii++){
+               if(gp.projectile[gp.currentMap][ii] ==null){
+                   gp.projectile[gp.currentMap][ii] =projectile;
+                   break;
+               }
+           }
+           shotAvailableCounter=0;
+       }
+
+    }
+    public void checkStartChasingOrNot(entity target,int distance,int rate){
+
+        if(tileDistance(target)<distance){
+            int i=new Random().nextInt(rate);
+            if(i==0){ onPath=true; }
+            }
+    }
+    public void checkStopChasingOrNot(entity target,int distance,int rate){
+
+        if(tileDistance(target)>distance){
+            int i=new Random().nextInt(rate);
+            if(i==0){ onPath=false; }
+            }
+    }
+
+    public void getRandomDirection(){
+
+        actionLookCounter++;
+        if(actionLookCounter==120){
+    
+            Random random =new Random();
+        int i=random.nextInt(100)+1;
+    
+        if(i<=25){
+            direction ="up";
+        }
+        if(i>25&&i<=50){
+            direction ="down";
+        }
+        if(i>50&&i<=75){
+            direction ="left";
+        }
+        if(i>75&&i<=100){
+            direction ="right";
+        }
+        actionLookCounter=0;
+        }
+    }
     public void damagePlayer(int attack) {
         if (gp.player.invincible == false) {
             gp.playSE(6);
@@ -306,6 +383,13 @@ public class entity {
         }
     }
 
+    public void setKnockBack(entity entity, int knockBackPower){
+
+       
+        entity.speed +=knockBackPower;
+        entity.knockBack=true;
+
+    }
     public void draw(Graphics2D g2) {
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
         int screenY = worldY - gp.player.worldY + gp.player.screenY;

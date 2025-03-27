@@ -38,6 +38,7 @@ public class Map extends tileManager{
                     row++;
                 }
             }
+            g2.dispose();
         }
 
     }     
